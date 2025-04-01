@@ -91,9 +91,10 @@ namespace MscrmTools.PolymorphicLookupCreator
             currentEmd = metadata.First(x => x.Metadata.SchemaName == cbbReferencingEntity.SelectedItem.ToString()).Metadata;
             currentAmd = (LookupAttributeMetadata)currentEmd.Attributes.First(x => x.SchemaName == cbbReferencingAttribute.SelectedItem.ToString());
 
-            txtSchemaName.Text = string.Join("_", currentAmd.SchemaName.Split('_').Skip(1));
-            txtPrefix.Text = currentAmd.SchemaName.Split('_')[0] + "_";
             txtDisplayName.Text = currentAmd.DisplayName?.UserLocalizedLabel?.Label;
+            txtSchemaName.Text = currentAmd.SchemaName.Contains("_")  ?  currentAmd.SchemaName.Substring(currentAmd.SchemaName.IndexOf('_') + 1) : currentAmd.SchemaName;
+            txtPrefix.Text = currentAmd.SchemaName.Split('_')[0] + "_";
+            //txtDisplayName.Text = currentAmd.DisplayName?.UserLocalizedLabel?.Label;
             txtSchemaName.ReadOnly = true;
             txtDisplayName.ReadOnly = true;
 
